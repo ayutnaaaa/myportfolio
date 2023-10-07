@@ -8,17 +8,17 @@ export default function Home() {
   console.log(items)
 
   // https://www.youtube.com/watch?v=uikATllLdRc lesson nexts firebase
-  useEffect(() => {
-    const q = query(collection(db, "test"))
-    const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      let itemArr = []
-      querySnapshot.forEach((doc) => {
-        itemArr.push({...doc.data(), id:doc.id})
+  // useEffect(() => {
+  //   const q = query(collection(db, "test"))
+  //   const unsubscribe = onSnapshot(q, (querySnapshot) => {
+  //     let itemArr = []
+  //     querySnapshot.forEach((doc) => {
+  //       itemArr.push({...doc.data(), id:doc.id})
         
-      });
-      setItems(itemArr)
-    })
-  }, [])
+  //     });
+  //     setItems(itemArr)
+  //   })
+  // }, [])
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       

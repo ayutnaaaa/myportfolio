@@ -26,7 +26,7 @@ export default () => {
         </p>
       </Link>
       <div className="flex items-center ">
-        {links.map((link) => (
+        {links.map((link, i) => (
           <li className="pr-[2.5rem] list-none" key={link.href}>
             <motion.div whileHover={{ scale: 1.1 }}>
               <Link

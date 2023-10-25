@@ -1,3 +1,4 @@
+"use client";
 export default () => {
-  return <div>admin</div>;
+  return <div></div>;
 };

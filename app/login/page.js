@@ -4,7 +4,8 @@ import { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { auth } from "../../utils/firebase";
-console.log(auth);
+
+// console.log(auth);
 export default () => {
   const router = useRouter();
   const [login, setLogin] = useState({
@@ -36,15 +37,30 @@ export default () => {
   };
 
   return (
-    <div>
-      <input label="Email" placeholder="Email" name="email" onChange={handle} />
+    <div className="flex flex-col max-w-[380px] p-5 text-gray-400 m-auto mt-20">
+      <input
+        label="Email"
+        type="email"
+        value={login.email}
+        placeholder="Email"
+        name="email"
+        onChange={handle}
+        className="p-5 m-3 rounded-2xl bg-gray-600 "
+      />
       <input
         label="Password"
         placeholder="Password"
         name="password"
+        value={login.password}
         onChange={handle}
+        className="p-5 m-3 rounded-2xl bg-gray-600"
       />
-      <button onClick={Login}>Нэвтрэх</button>
+      <button
+        onClick={Login}
+        className="bg-baseBlack rounded-2xl h-20 w-32 m-auto"
+      >
+        Нэвтрэх
+      </button>
     </div>
   );
 };

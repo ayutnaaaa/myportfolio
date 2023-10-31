@@ -4,6 +4,7 @@ import Link from "next/link";
 import { HiArrowRight } from "react-icons/hi2";
 import { motion } from "framer-motion";
 import { fadeIn } from "@/variants";
+import zur from "@public/img/c2.avif";
 
 export default () => {
   return (
@@ -19,7 +20,7 @@ export default () => {
         className="relative w-[185px] h-[185px] flex justify-center items-center group"
       > */}
       <Image
-        src={"@public/img/c2.avif"}
+        src={zur}
         width={142}
         height={148}
         alt=""

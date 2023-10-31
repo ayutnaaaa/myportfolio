@@ -4,7 +4,7 @@ import Link from "next/link";
 import { HiArrowRight } from "react-icons/hi2";
 import { motion } from "framer-motion";
 import { fadeIn } from "@/variants";
-import zur from "@public/img/c2.avif";
+import zur from "../public/img/moon.jpg";
 
 export default () => {
   return (

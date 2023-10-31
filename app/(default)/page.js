@@ -71,7 +71,7 @@ export default () => {
         <Info />
         <HeroCarousel />
         <SlidingImage />
-        <HorizontalScroll />
+        {/* <HorizontalScroll /> */}
         <Works />
         <Contacts />
       </motion.div>

@@ -11,30 +11,34 @@ import {
   where,
   getDocs,
   serverTimestamp,
+  orderBy,
+  updateDoc,
 } from "firebase/firestore";
 import { createContext, useContext, useState, useEffect } from "react";
 import { db } from "@/utils/firebase";
-import { signOut, getAuth } from "firebase/auth";
+import { signOut, getAuth, onAuthStateChanged } from "firebase/auth";
 import { useRouter } from "next/navigation";
 const auth = getAuth();
 export const DataContext = createContext({});
 
 export const DataContextProvider = ({ children }) => {
   const [works, setWorks] = useState([]);
+  const [oneWork, setOneWork] = useState([]);
   const [portfolio, setPortfolio] = useState([]);
   const [web, setWeb] = useState([]);
   const [mobile, setMobile] = useState([]);
   const [users, setUsers] = useState([]);
   const workRef = collection(db, "work");
   const dataRef = collection(db, "user");
+  const [type, setType] = useState("");
   const router = useRouter();
 
   useEffect(() => {
     fetchUser();
     // fetchWorks();
-    fetchMobile();
-    fetchWeb();
-    fetchProtfolio();
+    // fetchMobile();
+    // fetchWeb();
+    // fetchProtfolio();
   }, []);
   const userData = async (data) => {
     await addDoc(dataRef, {
@@ -49,7 +53,8 @@ export const DataContextProvider = ({ children }) => {
     router.push("/login");
   };
   const fetchUser = () => {
-    const unsubcribe = onSnapshot(dataRef, (snapshot) => {
+    const q = query(dataRef, orderBy("createDate"));
+    onSnapshot(q, (snapshot) => {
       setUsers(() => {
         const list = snapshot.docs.map((doc) => {
           return { ...doc.data(), id: doc.id };
@@ -57,12 +62,13 @@ export const DataContextProvider = ({ children }) => {
         return [...list];
       });
     });
-    return () => {
-      unsubcribe();
-    };
   };
-  const fetchWorks = () => {
-    const unsubcribe = onSnapshot(workRef, (snapshot) => {
+  // console.log(works);
+
+  const fetchWorks = (e) => {
+    const oneRef = collection(db, `work/${e}/detail`);
+
+    const unsubcribe = onSnapshot(oneRef, (snapshot) => {
       setWorks(() => {
         const list = snapshot.docs.map((doc) => {
           return { ...doc.data(), id: doc.id };
@@ -74,7 +80,14 @@ export const DataContextProvider = ({ children }) => {
       unsubcribe();
     };
   };
-
+  const getOneWork = (prod) => {
+    // console.log(prod);
+    const oneRef = doc(db, `work/${prod.work.type}/detail`, prod.id);
+    onSnapshot(oneRef, (doc) => {
+      setOneWork(doc.data());
+    });
+  };
+  // console.log(oneWork);
   const fetchProtfolio = async () => {
     const q = query(
       collection(db, "work"),
@@ -112,7 +125,7 @@ export const DataContextProvider = ({ children }) => {
   };
   const fetchMobile = async () => {
     const q = query(
-      collection(db, "work"),
+      // collection(db, `work/${}`),
       where("work.type", "==", "Mobile App")
     );
     const unsubcribe = onSnapshot(q, (snapshot) => {
@@ -127,11 +140,33 @@ export const DataContextProvider = ({ children }) => {
       unsubcribe();
     };
   };
-
+  const updateWork = async (work, photo, id) => {
+    const workRef = doc(db, `work/${work.type}/detail`, id);
+    await updateDoc(workRef, {
+      work,
+      photo,
+    })
+      .then((res) => {
+        alert("update");
+        // console.log("update");
+      })
+      .catch((error) => {
+        console.log("error" + error);
+      });
+  };
   const addWork = async (work, photo) => {
     const type = work.type;
+    setType(work.type);
+
+    // const workRef = collection(db, `work/${type}/detail`);
     const workRef = doc(db, "work", type);
     await setDoc(workRef, {
+      createDate: "",
+      // work,
+      // photo,
+    });
+    const detailRef = collection(db, `work/${type}/detail`);
+    await addDoc(detailRef, {
       work,
       photo,
     })
@@ -155,6 +190,10 @@ export const DataContextProvider = ({ children }) => {
         userData,
         users,
         logout,
+        fetchWorks,
+        getOneWork,
+        oneWork,
+        updateWork,
       }}
     >
       {children}

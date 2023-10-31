@@ -1,20 +1,35 @@
 "use client";
 
 import { motion, useTransform, useScroll } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
+import { ref, uploadBytes, getDownloadURL, listAll } from "firebase/storage";
+import { storage } from "@/utils/firebase";
 
-const cards = [
-  { url: "img/zur1.jpg", id: 1, title: "1" },
-  { url: "img/zur2.jpg", id: 2, title: "1" },
-  { url: "img/zur3.jpg", id: 3, title: "1" },
-  { url: "img/zur4.jpg", id: 4, title: "1" },
-  { url: "img/zur1.jpg", id: 1, title: "1" },
-  { url: "img/zur2.jpg", id: 2, title: "1" },
-  { url: "img/zur3.jpg", id: 3, title: "1" },
-  { url: "img/zur4.jpg", id: 4, title: "1" },
-];
+// const cards = [
+//   { url: "img/web.jpg", id: 1, title: "1" },
+//   { url: "img/port.jpg", id: 2, title: "1" },
+//   { url: "img/frontend.jpg", id: 3, title: "1" },
+//   { url: "img/full.jpg", id: 4, title: "1" },
+//   { url: "img/web.jpg", id: 1, title: "1" },
+//   { url: "img/port.jpg", id: 2, title: "1" },
+//   { url: "img/frontend.jpg", id: 3, title: "1" },
+//   { url: "img/full.jpg", id: 4, title: "1" },
+// ];
 
 export default () => {
+  const [cards, setCards] = useState([]);
+  const horListReff = ref(storage, "horizontalImages/");
+  useEffect(() => {
+    listAll(horListReff).then((res) => {
+      res.items.forEach((item) => {
+        getDownloadURL(item).then((url) => {
+          // console.log(url);
+          setCards((prev) => [...prev, url]);
+        });
+      });
+    });
+  }, []);
+
   const targetRef = (useRef < HTMLDivElement) | (null > null);
   const { scrollYProgress } = useScroll({
     target: targetRef,
@@ -27,11 +42,8 @@ export default () => {
           {cards.map((card, i) => {
             return (
               <div key={i} className="relative m-3">
-                <img
-                  src={card.url}
-                  className="w-[30vw] h-[30vh] object-cover"
-                />
-                <p className="absolute top-10 left-20 text-white">{card.id}</p>
+                <img src={card} className="w-[30vw] h-[30vh] object-cover" />
+                {/* <p className="absolute top-10 left-20 text-white">{card.id}</p> */}
               </div>
             );
           })}

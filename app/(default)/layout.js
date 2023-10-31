@@ -17,6 +17,7 @@ export default function DefaultLayout({ children }) {
       <DataContextProvider>
         <Header />
         {children}
+        
         <Footer />
       </DataContextProvider>
     </main>

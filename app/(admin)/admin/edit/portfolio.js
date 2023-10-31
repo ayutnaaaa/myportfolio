@@ -1,16 +1,27 @@
 "use client";
-import { useState, useContext } from "react";
+import { motion, useTransform, useScroll } from "framer-motion";
+import Link from "next/link";
+import { DataContext } from "@/context/data";
 import { storage } from "@/utils/firebase";
 import { uploadBytes, getDownloadURL, ref } from "firebase/storage";
-import { DataContext } from "@/context/data";
-import Link from "next/link";
+import { useContext, useEffect, useState } from "react";
 import Modal from "@/components/Modal";
-import EditWeb from "../edit/web";
-import EditPortfolio from "../edit/portfolio";
-import EditMobile from "../edit/mobile";
+const variable = ["private", "public", "organization"];
+const web = ["game", "dondon", "key"];
+const mobile = ["lon", "find", "new"];
+
+const variants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.3,
+    },
+  },
+};
 export default () => {
-  const ctx = useContext(DataContext);
-  // console.log(ctx)
+  const [photo, setPhoto] = useState("");
+  const [id, setId] = useState("");
   const [work, setWork] = useState({
     type: "",
     name: "",
@@ -18,10 +29,23 @@ export default () => {
     date: "",
     link: "",
   });
-  const [photo, setPhoto] = useState("");
-  const [confirm, setConfirm] = useState(false);
-  const variable = ["Portfolio", "Web App", "Mobile App"];
 
+  const ctx = useContext(DataContext);
+  const [confirm, setConfirm] = useState(false);
+  let one = ctx.works.find((item) => item.id === id);
+  useEffect(() => {
+    one && setWork(one?.work);
+    one && setPhoto(one?.photo);
+  }, [one]);
+
+  const showConfirm = (prod) => {
+    setId(prod.id);
+    setConfirm(true);
+  };
+  const closeConfirm = () => {
+    setConfirm(false);
+    // setConfirm({ ...confirm, confirm: false, data: null });
+  };
   const changeType = (e) => {
     setWork({ ...work, type: e.target.value });
   };
@@ -43,51 +67,36 @@ export default () => {
   };
   const uploadImage = () => {
     if (photo == null) return;
-    // const imageRef = ref(storage, `images/${photo.name + v4()}`);
     const imageRef = ref(storage, `images/${photo.name}`);
     uploadBytes(imageRef, photo).then((snapshot) => {
       getDownloadURL(snapshot.ref).then((downloadURL) => {
         setPhoto(downloadURL);
-        // console.log(downloadURL)
-        // ctx.saveImage(downloadURL)
       });
     });
     alert("photo amjilttai");
   };
   const send = () => {
-    ctx.addWork(work, photo);
+    ctx.updateWork(work, photo, id);
     closeConfirm();
   };
 
-  const showConfirm = () => {
-    setConfirm(true);
-  };
-  const closeConfirm = () => {
-    setConfirm(false);
-  };
-  const [active, setActive] = useState(0);
-  const [type, setType] = useState("");
-  const handle = (e, i) => {
-    setActive(i);
-    setType(e);
-    ctx.fetchWorks(e);
-  };
   return (
-    <div className="h-screen w-screen">
-      <button
-        className="bg-baseBlack ml-5 text-white rounded-3xl p-5 m-3 "
-        onClick={showConfirm}
-      >
-        Add work
-      </button>
-      <Modal show={confirm}>
-        <div className="flex flex-col md:flex-row items-center my-2">
+    <motion.div
+      variants={variants}
+      initial="hidden"
+      animate="show"
+      className="flex flex-wrap justify-center"
+      // className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 "
+      id="#works/portfolia"
+    >
+      <Modal show={confirm} data={confirm.data}>
+        <div className="flex flex-col md:flex-row items-center my-2 text-black">
           <p className="w-[50vw] md:w-[18vw] pl-3">Төрөл</p>
           <select
             onChange={changeType}
-            className="border p-2 mx-2 rounded-md w-[50vw] md:w-[30vw] my-2"
+            className="border text-black p-2 mx-2 rounded-md w-[50vw] md:w-[30vw] my-2"
           >
-            <option>Сонгох</option>
+            <option>{work.type}</option>
             <option>Portfolio</option>
             <option>Web App</option>
             <option>Mobile App</option>
@@ -103,6 +112,7 @@ export default () => {
             name="name"
             type="text"
             required
+            value={work.name}
           />
         </div>
         <div className="flex flex-col md:flex-row items-center my-2">
@@ -115,6 +125,7 @@ export default () => {
             name="detail"
             type="text"
             required
+            value={work.detail}
             // onChange={handle}
           />
         </div>
@@ -127,6 +138,8 @@ export default () => {
             type="date"
             name="date"
             required
+            value={work.date}
+            // value={moment(work.date.toDate()).calendar()}
           />
         </div>
         <div className="flex flex-col md:flex-row items-center my-2">
@@ -139,6 +152,7 @@ export default () => {
               type="file"
               name="image"
               required
+              // value={photo}
             />
           </div>
           <div className="flex ">
@@ -163,6 +177,7 @@ export default () => {
             type="url"
             name="link"
             required
+            value={work.link}
           />
         </div>
         <button
@@ -178,32 +193,46 @@ export default () => {
           SEND
         </button>
       </Modal>
-
-      <div>
-        <div className="flex text-baseBrown my-3 mx-6">
-          {variable.map((e, i) => (
-            <button
-              key={i}
-              onClick={() => handle(e, i)}
-              className={`${
-                active === i
-                  ? "border-b-2 border-baseBrown cursor-pointer p-2 mx-3 rounded-xl "
-                  : ""
-              } border-b-1 border-baseBrown cursor-pointer p-2 mx-3 rounded-xl hover:bg-baseOrange hover:border-baseReddishBrown hover:text-baseReddishBrown `}
-              // className=""
-            >
-              {e}
+      {ctx.works.map((prod, i) => (
+        <div
+          key={i}
+          className=" relative text-blue-200 z-50 flex flex-col m-2 p-3 justify-between items-center   w-[300px] h-[400px] border-4 border-blue-200 rounded-2xl "
+        >
+          <div>
+            <div className="flex items-center px-5 justify-between">
+              <p className="text-base mx-3">Төрөл: </p>
+              <p className="text-lg ">{prod.work.type}</p>
+            </div>
+            <div className="flex items-center px-5 justify-between">
+              <p className="text-base   mx-3">Work name: </p>
+              <p className="text-lg ">{prod.work.name}</p>
+            </div>
+            <div className="flex items-center px-5 justify-between">
+              <p className="text-base   mx-3">Work detail: </p>
+              <p className="text-lg ">{prod.work.detail}</p>
+            </div>
+            <div className="flex items-center  px-5 justify-between">
+              <p className="text-base   mx-3">Date:</p>
+              <p className="text-lg ">{prod.work.date}</p>
+            </div>
+          </div>
+          <img
+            src={prod.photo}
+            className="w-full h-full absolute top-0 left-0 -z-20 opacity-80"
+          />
+          <Link href={prod.work.link} target="blank">
+            <button className="text-xl cursor-pointer text-baseOne px-10 py-3 bg-baseThree rounded-lg hover:bg-baseFive">
+              Visit site
             </button>
-          ))}
+          </Link>
+          <button
+            className="text-xl cursor-pointer text-baseOne px-10 py-3 bg-baseThree rounded-lg hover:bg-baseFive"
+            onClick={() => showConfirm(prod)}
+          >
+            Edit
+          </button>
         </div>
-        {type === "Mobile App" ? (
-          <EditMobile />
-        ) : type === "Web App" ? (
-          <EditWeb />
-        ) : (
-          <EditPortfolio />
-        )}
-      </div>
-    </div>
+      ))}
+    </motion.div>
   );
 };

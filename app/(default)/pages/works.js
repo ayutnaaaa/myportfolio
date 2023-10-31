@@ -1,14 +1,14 @@
 "use client";
 import Image from "next/image";
 
-import { useState } from "react";
-import Portfolia from "@/components/portfolio";
+import { useState, useContext } from "react";
+import Portfolio from "@/components/portfolio";
 import Web from "@/components/web";
 import Mobile from "@/components/mobile";
 import { usePathname } from "next/navigation";
 import { motion, useTransform, useScroll } from "framer-motion";
 import { useRef } from "react";
-const variable = ["Portfolio", "Web App", "Mobile App"];
+import { DataContext } from "@/context/data";
 
 const variants = {
   hidden: { opacity: 0 },
@@ -31,44 +31,45 @@ const cards = [
 ];
 
 export default () => {
+  const variable = ["Portfolio", "Web App", "Mobile App"];
+  const ctx = useContext(DataContext);
   const pathname = usePathname();
-  const [active, setActive] = useState("");
-  const handle = (e) => {
-    setActive(e);
+  const [active, setActive] = useState(0);
+  const [type, setType] = useState("");
+  // console.log(type);
+  const handle = (e, i) => {
+    setActive(i);
+    setType(e);
+    ctx.fetchWorks(e);
   };
 
   return (
-    <div id="works">
-      {/* <HorizontalScroll /> */}
-      <div className="flex text-baseBrown my-3 mx-6 justify-center">
+    <div className=" w-screen flex flex-col items-center">
+      <div className="flex text-baseFour my-3 mx-6">
         {variable.map((e, i) => (
           <button
             key={i}
-            onClick={() => handle(e)}
+            onClick={() => handle(e, i)}
             className={`${
-              active
-                ? "border-b-2 border-baseOne text-baseOne font-bold cursor-pointer p-2 mx-3 rounded-xl "
+              active === i || active === 0
+                ? "border-b-2 border-baseFive cursor-pointer p-2 mx-3 rounded-xl "
                 : ""
-            } border-b-2 border-baseFive cursor-pointer p-2 mx-3 rounded-xl hover:bg-baseFive `}
+            }  cursor-pointer p-2 mx-3 rounded-xl hover:text-white`}
             // className=""
           >
             {e}
           </button>
         ))}
       </div>
-      {active === "Mobile App" ? (
-        <div className="flex justify-center">
+      <div className=" w-full h-full ">
+        {type === "Mobile App" ? (
           <Mobile />
-        </div>
-      ) : active === "Web App" ? (
-        <div className="flex justify-center">
+        ) : type === "Web App" ? (
           <Web />
-        </div>
-      ) : (
-        <div className="flex justify-center">
-          <Portfolia />
-        </div>
-      )}
+        ) : (
+          <Portfolio />
+        )}
+      </div>
     </div>
   );
 };

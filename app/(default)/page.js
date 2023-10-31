@@ -67,10 +67,10 @@ export default () => {
         transition={{ delay: 0.25 }}
       >
         {/* <Landing /> */}
-        <Info />
 
-        <SlidingImage />
+        <Info />
         <HeroCarousel />
+        <SlidingImage />
         <HorizontalScroll />
         <Works />
         <Contacts />

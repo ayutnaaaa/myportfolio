@@ -1,11 +1,9 @@
 "use client";
-import { motion, useTransform, useScroll } from "framer-motion";
+import { motion } from "framer-motion";
 import Link from "next/link";
 
 import { DataContext } from "@/context/data";
 import { useContext } from "react";
-
-const variable = ["lon", "find", "new"];
 
 const variants = {
   hidden: { opacity: 0 },
@@ -18,40 +16,53 @@ const variants = {
 };
 export default () => {
   const ctx = useContext(DataContext);
+
   return (
     <motion.div
       variants={variants}
       initial="hidden"
       animate="show"
-      className="m-2 grid sm:grid-cols-2 sm:gap-4 lg:grid-cols-3 xl:grid-cols-4 "
+      className="flex flex-wrap justify-center"
       id="#works/mobile"
     >
-      {ctx.mobile.map((prod , i) => (
-        <div key={i} className="flex flex-col m-2 p-3 justify-between items-center  w-[300px] h-[400px] border-4 border-baseOne rounded-2xl ">
-          <div className="flex items-center px-5 justify-between">
-            <p className="text-base text-baseSix mx-3">Төрөл: </p>
-            <p className="text-lg text-baseOne">{prod.work.type}</p>
+      {ctx.works.map((prod, i) => {
+        // console.log(prod.id);
+        return (
+          <div
+            key={i}
+            className="relative text-purple-200  flex flex-col m-2 p-3 justify-between items-center  w-[300px] h-[400px] border-4 border-purple-200 rounded-2xl "
+          >
+            <img
+              src={prod.photo}
+              className="w-full h-full absolute top-0 left-0 -z-10 opacity-80"
+            />
+            <div className="">
+              <div className="flex items-center px-5 justify-between">
+                <p className="text-base   mx-3">Төрөл: </p>
+                <p className="text-lg ">{prod.work.type}</p>
+              </div>
+              <div className="flex items-center px-5 justify-between">
+                <p className="text-base   mx-3">Work name: </p>
+                <p className="text-lg ">{prod.work.name}</p>
+              </div>
+              <div className="flex items-center px-5 justify-between">
+                <p className="text-base   mx-3">Work detail: </p>
+                <p className="text-lg ">{prod.work.detail}</p>
+              </div>
+              <div className="flex items-center  px-5 justify-between">
+                <p className="text-base   mx-3">Date:</p>
+                <p className="text-lg ">{prod.work.date}</p>
+              </div>
+            </div>
+
+            <Link href={prod.work.link} target="blank">
+              <button className="text-xl cursor-pointer text-baseOne px-10 py-3 bg-baseThree rounded-lg hover:bg-baseFive">
+                Visit site
+              </button>
+            </Link>
           </div>
-          <div className="flex items-center px-5 justify-between">
-            <p className="text-base text-baseSix mx-3">Work name: </p>
-            <p className="text-lg text-baseOne">{prod.work.name}</p>
-          </div>
-          <div className="flex items-center px-5 justify-between">
-            <p className="text-base text-baseSix mx-3">Work detail: </p>
-            <p className="text-lg text-baseOne">{prod.work.detail}</p>
-          </div>
-          <div className="flex items-center  px-5 justify-between">
-            <p className="text-base text-baseSix mx-3">Date:</p>
-            <p className="text-lg text-baseOne">{prod.work.date}</p>
-          </div>
-          <img src={prod.photo} className="w-[100px] h-[100px]" />
-          <Link href={prod.work.link} target="blank">
-            <button className="border text-xl cursor-pointer text-yellow-50 px-16 py-6 bg-baseThree rounded-lg hover:bg-baseFive">
-              Visit site
-            </button>
-          </Link>
-        </div>
-      ))}
+        );
+      })}
     </motion.div>
   );
 };

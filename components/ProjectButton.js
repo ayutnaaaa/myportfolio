@@ -19,7 +19,7 @@ export default () => {
         className="relative w-[185px] h-[185px] flex justify-center items-center group"
       > */}
       <Image
-        src={"/img/c2.avif"}
+        src={"@public/img/c2.avif"}
         width={142}
         height={148}
         alt=""

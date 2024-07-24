@@ -20,7 +20,16 @@ export default () => {
   // console.log(data);
 
   const send = () => {
-    ctx.userData(data);
+    if (
+      data.name == "" ||
+      data.email == "" ||
+      data.phone == "" ||
+      data.desc == ""
+    ) {
+      alert("Гүйцэт бичнэ үү");
+    } else {
+      ctx.userData(data);
+    }
   };
   const handle = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
@@ -38,9 +47,10 @@ export default () => {
           label="Name"
           placeholder="Name"
           placeholder-color="white"
-          name="name"
+          name="name"  
           onChange={handle}
           className="m-2 rounded-xl px-5 py-2 bg-baseOne"
+          required
         />
         <input
           label="Company name"
@@ -55,6 +65,7 @@ export default () => {
           name="email"
           onChange={handle}
           className="m-2 rounded-xl px-5 py-2 bg-baseOne"
+          required
         />
         <input
           label="Phone"
@@ -62,6 +73,7 @@ export default () => {
           name="phone"
           onChange={handle}
           className="m-2 rounded-xl px-5 py-2 bg-baseOne"
+          required
         />
         <input
           label="Desc"
@@ -69,6 +81,7 @@ export default () => {
           name="desc"
           onChange={handle}
           className="m-2 rounded-xl px-5 py-2 bg-baseOne"
+          required
         />
         <button
           className="bg-baseFive mt-5 w-36 h-14 rounded-2xl m-auto text-2xl hover:bg-baseThree"

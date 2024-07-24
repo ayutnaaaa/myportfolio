@@ -2,9 +2,9 @@
 import Image from "next/image";
 
 import { useState, useContext } from "react";
-import Portfolio from "@/components/portfolio";
-import Web from "@/components/web";
-import Mobile from "@/components/mobile";
+import Portfolio from "@/components/pages/portfolio";
+import Web from "@/components/pages/web";
+import Mobile from "@/components/pages/mobile";
 import { usePathname } from "next/navigation";
 import { motion, useTransform, useScroll } from "framer-motion";
 import { useRef } from "react";
@@ -48,6 +48,7 @@ export default () => {
       <div className="flex text-baseFour my-3 mx-6">
         {variable.map((e, i) => (
           <button
+            id="works"
             key={i}
             onClick={() => handle(e, i)}
             className={`${

@@ -10,22 +10,31 @@ import {
   query,
 } from "firebase/firestore";
 import { db } from "@/utils/firebase";
-import HeroCarousel from "@/components/HeroCarousel";
+import HeroCarousel from "@/components/pages/HeroCarousel";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
-import Works from "./pages/works";
+import Works from "./components/pages/works";
 
-import Contacts from "./pages/contacts.js";
+import Contacts from "./components/pages/contacts.js";
 
-import SlidingImage from "@/components/SlidingImage";
-import Landing from "@/components/Landing";
-import PreLoader from "@/components/PreLoader";
-import HorizontalScroll from "@/components/HorizontalScroll";
-import ProjectButton from "@/components/ProjectButton";
-import Info from "@/components/Info";
+import SlidingImage from "@/components/pages/SlidingImage";
+import Landing from "@/components/pages/Landing";
+import PreLoader from "@/components/pages/PreLoader";
+import HorizontalScroll from "@/components/pages/HorizontalScroll";
+import ProjectButton from "@/app/(default)/components/pages/ProjectButton";
+import Info from "@/components/pages/Info";
+import Freelancer from "@/components/pages/Freelancer";
+import Frontend from "@/components/pages/Frontend";
+
+import Home from "./home/page"
+import About from "./about/page"
+import Work from "./work/page"
+import Contact from "./contact/page"
+import Transition from "./components/pages/transition";
 
 export default () => {
   const router = useRouter();
+  console.log(router.route)
   const [items, setItems] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
@@ -56,24 +65,29 @@ export default () => {
   }, []);
 
   return (
-    <div className="pt-16 flex flex-col">
+    <div className="h-full">
       <AnimatePresence mode="wait">
-        {isLoading && <PreLoader />}
+        {/* {isLoading && <PreLoader />} */}
       </AnimatePresence>
       <motion.div
-        initial={{ opacity: 0, y: 15 }}
-        animate={{ opacity: 1, y: 0 }}
-        exist={{ opacity: 0, y: 15 }}
-        transition={{ delay: 0.25 }}
+        key={router.route} className="h-full"
       >
-        {/* <Landing /> */}
+       
+        <Home/>
+        {/* <About/>
+        <Contact/>
+        <Work/> */}
+         {/* <Transition/> */}
 
-        <Info />
-        <HeroCarousel />
-        <SlidingImage />
+        {/* <Landing /> */}
+        {/* <Info /> */}
+        {/* <HeroCarousel /> */}
+        {/* <SlidingImage /> */}
         {/* <HorizontalScroll /> */}
-        <Works />
-        <Contacts />
+        {/* <Frontend/> */}
+        {/* <Freelancer/> */}
+        {/* <Works /> */}
+        {/* <Contacts /> */}
       </motion.div>
     </div>
   );

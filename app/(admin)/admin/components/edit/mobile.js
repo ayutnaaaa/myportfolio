@@ -1,7 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import Modal from "@/components/Modal";
+import Modal from "@/components/UI/Modal";
 import { storage } from "@/utils/firebase";
 import { uploadBytes, getDownloadURL, ref } from "firebase/storage";
 import { DataContext } from "@/context/data";
@@ -159,7 +159,7 @@ export default () => {
               className="w-[50px] h-[50px] mx-3 border border-gray-400"
             />
             <button
-              className="mx-3 bg-black text-white p-2 rounded-xl"
+              className="mx-3 bg-black text-white p-2 rounded-xl" 
               onClick={uploadImage}
             >
               upload

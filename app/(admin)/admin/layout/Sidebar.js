@@ -15,12 +15,12 @@ export default () => {
       >
         Works
       </Link>
-      <Link
+      {/* <Link
         href="/admin/information"
         className="border-b border-gray-500 p-3 hover:text-baseFive"
       >
-        Information
-      </Link>
+        Information 
+      </Link> */}
       <Link
         href="/admin/users"
         className="border-b border-gray-500 p-3 hover:text-baseFive"

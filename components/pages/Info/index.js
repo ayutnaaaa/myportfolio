@@ -1,6 +1,6 @@
 "use client";
 
-import ProjectButton from "../ProjectButton";
+import ProjectButton from "../../../app/(default)/components/pages/ProjectButton";
 
 export default () => {
   return (

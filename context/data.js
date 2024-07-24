@@ -22,6 +22,7 @@ const auth = getAuth();
 export const DataContext = createContext({});
 
 export const DataContextProvider = ({ children }) => {
+  const [allWeb, setWebWork] = useState([])
   const [works, setWorks] = useState([]);
   const [oneWork, setOneWork] = useState([]);
   const [portfolio, setPortfolio] = useState([]);
@@ -33,14 +34,18 @@ export const DataContextProvider = ({ children }) => {
   const [type, setType] = useState("");
   const router = useRouter();
 
+  console.log(web)
   useEffect(() => {
     fetchUser();
+    fetchWebWork()
     // fetchWorks();
     // fetchMobile();
     // fetchWeb();
     // fetchProtfolio();
   }, []);
+
   const userData = async (data) => {
+    // console.log(data)
     await addDoc(dataRef, {
       data,
       createDate: serverTimestamp(),
@@ -63,7 +68,18 @@ export const DataContextProvider = ({ children }) => {
       });
     });
   };
-  // console.log(works);
+  // console.log(allWeb);
+  const fetchWebWork = () => {
+    const all = collection(db, `work/Web App/detail` )
+    onSnapshot(all, (snapshot) => {
+      setWebWork(() => {
+        const list = snapshot.docs.map((doc) => {
+          return { ...doc.data(), id: doc.id };
+        });
+        return [...list];
+      });
+    });
+  }
 
   const fetchWorks = (e) => {
     const oneRef = collection(db, `work/${e}/detail`);
@@ -114,6 +130,7 @@ export const DataContextProvider = ({ children }) => {
     const unsubcribe = onSnapshot(q, (snapshot) => {
       setWeb(() => {
         const list = snapshot.docs.map((doc) => {
+          // console.log(doc.data())
           return { ...doc.data(), id: doc.id };
         });
         return [...list];
@@ -194,6 +211,7 @@ export const DataContextProvider = ({ children }) => {
         getOneWork,
         oneWork,
         updateWork,
+        allWeb
       }}
     >
       {children}

@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { DataContext } from "@/context/data";
 import { useContext, useState, useEffect } from "react";
-import Modal from "@/components/Modal";
+import Modal from "@/components/UI/Modal";
 import { storage } from "@/utils/firebase";
 import { uploadBytes, getDownloadURL, ref } from "firebase/storage";
 

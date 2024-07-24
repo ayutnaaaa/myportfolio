@@ -1,0 +1,17 @@
+{
+    "navbar": {
+        "about-us": "About us",
+        "service": "Service",
+        "training": "Training",
+        "expo-conference": "Expo & Conference",
+        "blog": "Blog",
+        "career": "Career",
+        "contact-us": "Contact us"
+    },
+    "lang": {
+        "mongolian": "Mongolian",
+        "english": "English"
+    }
+  
+  
+}

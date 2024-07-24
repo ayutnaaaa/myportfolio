@@ -4,10 +4,10 @@ import { storage } from "@/utils/firebase";
 import { uploadBytes, getDownloadURL, ref } from "firebase/storage";
 import { DataContext } from "@/context/data";
 import Link from "next/link";
-import Modal from "@/components/Modal";
-import EditWeb from "../edit/web";
-import EditPortfolio from "../edit/portfolio";
-import EditMobile from "../edit/mobile";
+import Modal from "@/components/UI/Modal";
+import EditWeb from "../components/edit/web";
+import EditPortfolio from "../components/edit/portfolio";
+import EditMobile from "../components/edit/mobile";
 export default () => {
   const ctx = useContext(DataContext);
   // console.log(ctx)

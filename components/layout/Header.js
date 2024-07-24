@@ -14,21 +14,21 @@ const links = [
   // { href: "#home", text: "Home" },
   { href: "#works", text: "Work" },
   // { href: "#about", text: "About" },
-  { href: "#contacts", text: "Contact" },
+  { href: "#contacts", text: "Contact" }, 
 ];
 export default () => {
   // const path = usePathname();
   return (
-    <header className="w-screen fixed top-0 z-10 flex h-16  text-baseOne justify-between">
+    <header className="w-screen fixed top-0 z-10 flex h-16  text-baseOne bg-transparent justify-between">
       <Link href="/" className="flex items-center ">
-        <p className="text-baseThree ml-6 text-lg sm:text-2xl sm:mx-4 md:text-3xl lg:text-4xl font-bold">
-          Ayut<span className="text-baseOne">naa</span>
+        <p className="text-baseBlue ml-6 text-lg sm:text-2xl sm:mx-4 md:text-3xl lg:text-4xl font-bold">
+          Ayut<span className="text-purple-600">naa</span>
         </p>
       </Link>
       <div className="flex items-center mr-6 text-sm sm:text-base md:text-xl lg:text-2xl ">
         {links.map((link) => (
           <li
-            className="px-2 md:px-4 lg:px-5 xl:px-6 list-none hover:text-baseFour hover:font-semibold"
+            className="text-purple-600 px-2 md:px-4 lg:px-5 xl:px-6 list-none hover:text-baseBlue hover:font-semibold"
             key={link.href}
           >
             <motion.div whileHover={{ scale: 1.1 }}>

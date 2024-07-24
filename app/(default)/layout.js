@@ -1,10 +1,21 @@
-import Header from "@/components/Header";
+
+import Header from "@/components/layout/Header";
 import "./globals.css";
 import { Inter } from "next/font/google";
-import Footer from "@/components/Footer";
+import Footer from "@/components/layout/Footer";
 import { DataContextProvider } from "@/context/data";
+import NewNav from "@/app/(default)/components/layout/newNav";
+import NewHeader from "@/app/(default)/components/layout/newHeader";
+import TopLeftImg from "./components/layout/TopLeftImg";
+import { Provider as NextUIProvider } from "@/lib/next-ui";
+import Providers from "@/lib/providers";
 
-const inter = Inter({ subsets: ["latin"] });
+
+const inter = Inter({ 
+  subsets: ["latin"],
+  variable: "--font-sora",
+  weight: ["100", '200' , "300" , "400" , "500", "600" , "700" ,"800"] 
+});
 
 export const metadata = {
   title: "Ayutnaa",
@@ -13,14 +24,18 @@ export const metadata = {
 
 export default function DefaultLayout({ children }) {
   return (
-    <main>
+    <main className="page relative">
       <DataContextProvider>
-        <Header />
-        {children}
-        
-        <Footer />
+        <Providers>
+          <NextUIProvider>
+              <TopLeftImg/>
+              <NewNav/>
+              <NewHeader/>
+              {children} 
+            </NextUIProvider>
+          </Providers>
       </DataContextProvider>
     </main>
   );
 }
-// background: linear-gradient( #dedcdc , #989daa, #7b919c, #57707a, #191d23);
+

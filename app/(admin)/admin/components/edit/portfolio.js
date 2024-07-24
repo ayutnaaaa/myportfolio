@@ -5,7 +5,7 @@ import { DataContext } from "@/context/data";
 import { storage } from "@/utils/firebase";
 import { uploadBytes, getDownloadURL, ref } from "firebase/storage";
 import { useContext, useEffect, useState } from "react";
-import Modal from "@/components/Modal";
+import Modal from "@/components/UI/Modal";
 const variable = ["private", "public", "organization"];
 const web = ["game", "dondon", "key"];
 const mobile = ["lon", "find", "new"];

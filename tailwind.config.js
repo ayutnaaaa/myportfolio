@@ -1,10 +1,17 @@
 /** @type {import('tailwindcss').Config} */
+
+// tailwind.config.js
+const {nextui} = require("@nextui-org/react");
+
+
 module.exports = {
   content: [
+    "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  darkMode: "class",
   theme: {
     extend: {
       colors: {
@@ -20,14 +27,43 @@ module.exports = {
         baseFour: "#7b919c",
         baseFive: "#57707a",
         baseSix: "#27084E",
+        basePurple:"#483078",
+        baseBlue: "#005bc5"
       },
       animation: {
         "spin-slow": "spin 6s linear infinite",
       },
       backgroundImage: {
-        explosion: 'url("/img/bg2.jpg")',
+        explosion: 'url("/img2/sky.jpg")',
+        
       },
+      backgroundColor: {
+          primary : "#021024"
+      }
     },
   },
-  plugins: [],
+  plugins: [nextui({
+    themes: {
+      light: {
+        colors: {
+          background: "#ffffff",
+          foreground: "#11181c",
+          primary: {
+            foreground: '#ffffff',
+            DEFAULT: '#006fee'
+          }
+        }
+      },
+      dark: {
+        colors: {
+          background: "#021024",
+          foreground: "#ecedee",
+          primary: {
+            foreground: '#ffffff',
+            DEFAULT: '#006fee'
+          }
+        }
+      }
+    }
+  })],
 };

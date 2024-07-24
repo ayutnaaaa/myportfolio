@@ -44,16 +44,7 @@ module.exports = {
   },
   plugins: [nextui({
     themes: {
-      // light: {
-      //   colors: {
-      //     background: "#ffffff",
-      //     foreground: "#11181c",
-      //     primary: {
-      //       foreground: '#ffffff',
-      //       DEFAULT: '#006fee'
-      //     }
-      //   }
-      // },
+    
       dark: {
         colors: {
           background: "#021024",

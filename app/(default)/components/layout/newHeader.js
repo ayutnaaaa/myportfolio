@@ -1,5 +1,4 @@
 "use client"
-import Image from "next/image";
 import Link from "next/link";
 import Socials from "../pages/Socials";
 import {Dropdown, DropdownItem, DropdownTrigger, DropdownMenu , Button} from "@nextui-org/react"
@@ -10,8 +9,6 @@ import ThemeSwitcher from "../pages/ThemeSwitcher";
 const newHeader = () => {
     const [language, setLanguage] = useState("en")
   
-// console.log(language)
-
     useEffect(() => {
         const lang = localStorage.getItem('my-language')
         if(lang) {
@@ -19,7 +16,7 @@ const newHeader = () => {
         } else {
           localStorage.setItem('my-language', 'en')
         }
-        // observe
+       
       }, [])
 
       const handleChangeLanguage = (event) => {

@@ -28,7 +28,7 @@ export default function DefaultLayout({ children }) {
       <DataContextProvider>
         <Providers>
           <NextUIProvider>
-              <TopLeftImg/>
+              {/* <TopLeftImg/> */}
               <NewNav/>
               <NewHeader/>
               {children} 

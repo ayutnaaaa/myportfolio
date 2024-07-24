@@ -34,7 +34,7 @@ import Transition from "./components/pages/transition";
 
 export default () => {
   const router = useRouter();
-  console.log(router.route)
+  // console.log(router.route)
   const [items, setItems] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
@@ -67,7 +67,7 @@ export default () => {
   return (
     <div className="h-full">
       <AnimatePresence mode="wait">
-        {/* {isLoading && <PreLoader />} */}
+        {isLoading && <PreLoader />}
       </AnimatePresence>
       <motion.div
         key={router.route} className="h-full"
@@ -94,20 +94,3 @@ export default () => {
 };
 // https://www.youtube.com/watch?v=Powk6f1qe3k&t=296s  lesson framer
 
-/* <motion.div
-        // key={router.route}
-        initial="initialState"
-        animate="animaState"
-        exit="exitState"
-        transition={{duration: 0.75}}
-        variants={{initialState: {
-          opacity: 0
-        },
-        animateState: {
-          opacity: 1
-        },
-        exitState: {
-          opacity: 0
-        }
-      }}
-        > */

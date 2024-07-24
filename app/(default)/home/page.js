@@ -1,10 +1,8 @@
 "use client"
 import ParticlesContainer from "../components/pages/ParticlesContainer"
-
-import Avatar from "../components/pages/Avatar"
 import {motion} from "framer-motion"
 import { fadeIn } from "@/variants"
-import ProjectButton from "../components/pages/ProjectButton"
+
 export default  () => {
     return (
         <div className="h-full relative text-purple-300">

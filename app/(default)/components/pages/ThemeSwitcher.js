@@ -2,21 +2,21 @@
 import { useTheme } from "next-themes";
 import { useState, useEffect } from "react";
 const ThemeSwitcher = () => {
-    const {theme, setTheme} = useTheme()
-    const [mounted, setMounted] = useState(false)
+    // const {theme, setTheme} = useTheme()
+    // const [mounted, setMounted] = useState(false)
 
-    useEffect(() => {
-        setMounted(true)
-    }, [])
+    // useEffect(() => {
+    //     setMounted(true)
+    // }, [])
     
-    if(!mounted) {
-        return null
-    }
+    // if(!mounted) {
+    //     return null
+    // }
     return (
         <div>
-            theme: {theme}
+            {/* theme: {theme}
             <button onClick={() => setTheme("light")}>light</button>
-            <button onClick={() => setTheme("dark")}>dark</button>
+            <button onClick={() => setTheme("dark")}>dark</button> */}
         </div>
     )
 }

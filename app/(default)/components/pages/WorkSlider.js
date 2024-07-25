@@ -77,7 +77,7 @@ import { DataContext } from "@/context/data";
                          
                           <img
                             src={slide?.photo}
-                            className="w-2/3 sm:w-1/2 aspect-auto mx-3 border border-gray-400"
+                            className="w-2/3 sm:w-1/2 mx-3 border border-gray-400"
                           />
                           <div className="flex flex-col justify-center items-center md:px-4">
                             <div className="flex text-[12px] w-[180px] justify-between">

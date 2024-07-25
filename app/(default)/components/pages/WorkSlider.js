@@ -1,5 +1,4 @@
 // icons
-import {BsArrowRight} from "react-icons/bs"
 import Image from "next/image"
 import {Swiper, SwiperSlide} from "swiper/react"
 import Link from "next/link";
@@ -68,24 +67,24 @@ import { DataContext } from "@/context/data";
         modules={[ Pagination]}
         
         >
-            {ctx?.allWeb.map((slide, index) => {
+            {ctx?.allWeb.map((slide, index) => { 
               
                 //  {workSlides.slides.map((slide, index) => {
                 return (
                     <SwiperSlide key={index}>
-                      <div className="flex justify-center flex-wrap sm:flex-nowrap">
+                      <div className="flex h-[300px] md:h-[400px] lg:h-[500px] justify-center flex-wrap sm:flex-nowrap">
                       {/* <div className="bg-red-200 grid grid-cols-2 grid-rows-2 gap-4 cursor-pointer"> */}
                          
                           <img
                             src={slide?.photo}
-                            className="w-[180px] mx-3 border border-gray-400"
+                            className="w-2/3 sm:w-1/2 aspect-auto mx-3 border border-gray-400"
                           />
-                          <div className="flex flex-col justify-center items-center">
+                          <div className="flex flex-col justify-center items-center md:px-4">
                             <div className="flex text-[12px] w-[180px] justify-between">
                               <p>{slide?.work?.type}</p>
                               <p>{slide?.work?.date}</p>
                             </div>
-                            <p className="uppercase text-blue-300">{slide?.work?.name}</p>
+                            <p className="uppercase text-blue-300 lg:text-[40px] flex flex-wrap">{slide?.work?.name}</p>
                             <p className="text-sm w-full text-blue-300">{slide?.work?.detail}</p>
                             <Link href={slide?.work?.link} target="blank">
                               <button className="text-xl mt-3 cursor-pointer text-purple-700 px-10 py-3 bg-purple-300 rounded-lg hover:bg-baseFive">

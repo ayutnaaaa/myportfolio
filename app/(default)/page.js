@@ -65,12 +65,12 @@ export default () => {
   }, []);
 
   return (
-    <div className="h-full">
+    <div className="h-screen">
       <AnimatePresence mode="wait">
         {isLoading && <PreLoader />}
       </AnimatePresence>
       <motion.div
-        key={router.route} className="h-full"
+        key={router.route} className="h-screen"
       >
        
         <Home/>

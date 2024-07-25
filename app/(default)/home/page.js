@@ -33,26 +33,11 @@ export default  () => {
                     </motion.p>
 
                 </motion.div>
-                
-
             </div>
 
             <div className="w-full h-full absolute right-0 bottom-0 ">
-               
                 <ParticlesContainer/>
-                {/* <motion.div
-                    variants={fadeIn("up", 0.6 )}  
-                    initial="hidden" 
-                    animate="show" 
-                    exit='hidden'
-                    transition={{duration: 1, ease: "easeInOut"}}
-                    className=" max-w-[700] max-h-[600] absolute -bottom-32 lg:bottom-0 lg:right-[8%]">
-                    <Avatar/>
-                </motion.div> */}
             </div>
-
-           
-           
         </div>
     )
 }

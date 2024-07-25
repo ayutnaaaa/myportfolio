@@ -8,10 +8,10 @@ import { fadeIn } from "@/variants"
 
 export default  () => {
     return (
-        <div className="text-white h-full bg-primary/30 py-36 flex items-center">
+        <div className="text-white h-screen bg-primary/30 py-2 xl:py-32 lg:pb-24 flex items-center">
             <Bulb/>
-            <div className="px-6 lg:px-40 w-full mx-auto ">
-                <div className="flex flex-col xl:flex-row gap-x-8">
+      
+                <div className="w-full mx-auto  px-6 lg:px-40 flex flex-col xl:flex-row gap-x-8">
                  
                     <div className="text-center flex xl:w-[30vw] flex-col  mb-4 xl:mb-0">
                         <motion.h2 
@@ -19,7 +19,7 @@ export default  () => {
                          initial="hidden" 
                          animate="show" 
                          exit='hidden'
-                        className="h2 xl:mt-12">
+                        className="h2 mt-6 lg:mt-0 xl:mt-12">
                             Our project <span className="text-purple-300"></span>
                         </motion.h2>
                         <motion.p 
@@ -27,7 +27,7 @@ export default  () => {
                           initial="hidden" 
                           animate="show" 
                           exit='hidden'
-                        className="mb-4 text-center max-w-[400px] mx-auto lg:mx-0">Манай хийсэн төсөл
+                        className="mb-4 mx-auto">Манай хийсэн төсөл
                         </motion.p>
                     </div>
                     <motion.div 
@@ -39,9 +39,8 @@ export default  () => {
                         <WorkSlider/>
                     </motion.div>
                 </div>
-            </div>
+           
             <Circles/>
-          
         </div>
     )
 }

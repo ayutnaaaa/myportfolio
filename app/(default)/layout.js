@@ -26,14 +26,14 @@ export default function DefaultLayout({ children }) {
   return (
     <main className="page relative">
       <DataContextProvider>
-        <Providers>
-          <NextUIProvider>
+        {/* <Providers> */}
+          {/* <NextUIProvider> */}
               {/* <TopLeftImg/> */}
               <NewNav/>
               <NewHeader/>
               {children} 
-            </NextUIProvider>
-          </Providers>
+            {/* </NextUIProvider> */}
+          {/* </Providers> */}
       </DataContextProvider>
     </main>
   );
